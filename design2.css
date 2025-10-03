@@ -16,6 +16,10 @@
     border-radius: 25px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+#timer {
+    word-wrap: break-word;
+    text-align: center;
+}
 #timer-box{
     background-color:rgb(255, 245, 134);
     font-size: 45px;

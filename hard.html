@@ -19,7 +19,7 @@
             Fully cooked yolk and white
         </p>
         <div id="timer-box">
-            <span id="timer">07:00</span>
+            <span id="timer">7:00</span>
         </div>
         <div id="button-container">
             <button id="start-btn">Start</button>
@@ -34,5 +34,60 @@
             ➤ Don't skip the ice bath
         </div>
     </div>   
+    <script>
+const startMins = 7;
+let time = startMins * 60;
+const timerEl = document.getElementById("timer");
+const startBtn = document.getElementById("start-btn");
+const resetBtn = document.getElementById("reset-btn");
+let countdownInterval = null;
+let isRunning = false; // track if timer is running
+
+function updateCountdown() {
+    const minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    timerEl.innerHTML = `${minutes}:${seconds}`;
+
+    if (time <= 0) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+        timerEl.innerHTML = "Time's up!";
+        startBtn.innerHTML = "Start";
+        isRunning = false;
+    } else {
+        time--;
+    }
+}
+
+// Start/Pause button
+startBtn.addEventListener('click', () => {
+    if (!isRunning) {
+        // Start or resume
+        updateCountdown(); // run immediately
+        countdownInterval = setInterval(updateCountdown, 1000);
+        startBtn.innerHTML = "Pause";
+        isRunning = true;
+    } else {
+        // Pause
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+        startBtn.innerHTML = "Start";
+        isRunning = false;
+    }
+});
+
+// Reset button
+resetBtn.addEventListener('click', () => {
+    clearInterval(countdownInterval);
+    countdownInterval = null;
+    time = startMins * 60;
+    timerEl.innerHTML = "7:00";
+    startBtn.innerHTML = "Start";
+    isRunning = false;
+});
+
+</script>
 </body>
 </html>
