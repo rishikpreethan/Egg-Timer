@@ -3,8 +3,7 @@
     <title>Soft Boiled</title>
     <link rel="stylesheet" href="design2.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
 </head>
 <body style="background-color:rgb(255, 244, 209)">
     <div id="main2">
@@ -65,11 +64,12 @@ function updateCountdown() {
 
 // Start/Pause button
 // Start/Pause button
+// Start/Pause button
 startBtn.addEventListener('click', () => {
     if (!isRunning) {
-        // Only start if NO interval is running
-        if (!countdownInterval) {
-            updateCountdown(); // run immediately
+        // Only create interval if not running
+        if (countdownInterval === null) {
+            updateCountdown(); // run immediately once
             countdownInterval = setInterval(updateCountdown, 1000);
         }
         startBtn.innerHTML = "Pause";
@@ -77,11 +77,12 @@ startBtn.addEventListener('click', () => {
     } else {
         // Pause
         clearInterval(countdownInterval);
-        countdownInterval = null; // clear reference
+        countdownInterval = null;
         startBtn.innerHTML = "Start";
         isRunning = false;
     }
 });
+
 
 
 // Reset button
