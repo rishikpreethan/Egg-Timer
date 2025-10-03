@@ -3,7 +3,7 @@
     <title>Soft Boiled</title>
     <link rel="stylesheet" href="design2.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    
+
 
 </head>
 <body style="background-color:rgb(255, 244, 209)">
@@ -64,21 +64,25 @@ function updateCountdown() {
 }
 
 // Start/Pause button
+// Start/Pause button
 startBtn.addEventListener('click', () => {
     if (!isRunning) {
-        // Start or resume
-        updateCountdown(); // run immediately
-        countdownInterval = setInterval(updateCountdown, 1000);
+        // Only start if NO interval is running
+        if (!countdownInterval) {
+            updateCountdown(); // run immediately
+            countdownInterval = setInterval(updateCountdown, 1000);
+        }
         startBtn.innerHTML = "Pause";
         isRunning = true;
     } else {
         // Pause
         clearInterval(countdownInterval);
-        countdownInterval = null;
+        countdownInterval = null; // clear reference
         startBtn.innerHTML = "Start";
         isRunning = false;
     }
 });
+
 
 // Reset button
 resetBtn.addEventListener('click', () => {
