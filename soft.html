@@ -84,10 +84,17 @@ resetBtn.addEventListener('click', () => {
     clearInterval(countdownInterval);
     countdownInterval = null;
     time = startMins * 60;
-    timerEl.innerHTML = "3:00";
+
+    // Format minutes and seconds
+    const minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    timerEl.innerHTML = `${minutes}:${seconds}`;
     startBtn.innerHTML = "Start";
     isRunning = false;
 });
+
 
 
 </script>
