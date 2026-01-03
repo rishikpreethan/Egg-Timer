@@ -1,0 +1,109 @@
+<html>
+ <head>
+    <title>Soft Boiled</title>
+    <link rel="stylesheet" href="design2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+    <link rel="stylesheet" href="cursor.css">
+</head>
+<body style="background-color:rgb(255, 244, 209)">
+    <div id="main2">
+        <button id="back-btn" onclick="window.location.href='index.html'">
+            Back to Eggs
+        </button>
+        <h1 style="color: black"> 
+            <span class="emoji" style="font-size: 60px">🥚</span>
+            <br>               
+            Soft Boiled
+        </h1>
+        <p style="color: black">
+            Runny yolk, soft white
+        </p>
+        <div id="timer-box">
+            <span id="timer">3:00</span>
+        </div>
+        <div id="button-container">
+            <button id="start-btn">Start</button>
+            <button id="reset-btn">Reset</button>
+        </div>
+        <div id="tips">
+            <h3>Pro Tips:</h3>
+            ➤ Room temperature Eggs
+            <br>
+            ➤ Fresh eggs work best
+            <br>
+            ➤ Plunge in ice water after cooking
+        </div>
+    </div>
+
+    <script>
+const startMins = 3;
+let time = startMins * 60;
+const timerEl = document.getElementById("timer");
+const startBtn = document.getElementById("start-btn");
+const resetBtn = document.getElementById("reset-btn");
+let countdownInterval = null;
+let isRunning = false; // track if timer is running
+
+function updateCountdown() {
+    const minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    timerEl.innerHTML = `${minutes}:${seconds}`;
+
+    if (time <= 0) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+        timerEl.innerHTML = "Time's up!";
+        startBtn.innerHTML = "Start";
+        isRunning = false;
+    } else {
+        time--;
+    }
+}
+
+// Start/Pause button
+// Start/Pause button
+// Start/Pause button
+startBtn.addEventListener('click', () => {
+    if (!isRunning) {
+        // Only create interval if not running
+        if (countdownInterval === null) {
+            updateCountdown(); // run immediately once
+            countdownInterval = setInterval(updateCountdown, 1000);
+        }
+        startBtn.innerHTML = "Pause";
+        isRunning = true;
+    } else {
+        // Pause
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+        startBtn.innerHTML = "Start";
+        isRunning = false;
+    }
+});
+
+
+
+// Reset button
+resetBtn.addEventListener('click', () => {
+    clearInterval(countdownInterval);
+    countdownInterval = null;
+    time = startMins * 60;
+
+    // Format minutes and seconds
+    const minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    timerEl.innerHTML = `${minutes}:${seconds}`;
+    startBtn.innerHTML = "Start";
+    isRunning = false;
+});
+</script>
+
+<script src="./cursor.js"></script>
+
+</body>
+</html>

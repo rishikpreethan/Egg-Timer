@@ -1,0 +1,28 @@
+body {
+  cursor: none;
+}
+
+.custom-cursor {
+  width: 40px;
+  height: 18px;
+  border-radius: 999px;
+  background: red; /* TEMP: bright color */
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transform-origin: center;
+  z-index: 999999;
+}
+
+.custom-cursor {
+  width: 30px;
+  height: 14px;
+  border-radius: 999px;
+  background: black;
+}
+* {
+  cursor: none !important;
+}
+
+
