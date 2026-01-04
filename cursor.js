@@ -1,51 +1,62 @@
-const cursor = document.createElement("div");
-cursor.className = "custom-cursor";
-document.body.appendChild(cursor);
+// Run cursor only on desktop devices
+if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
 
-let mouseX = 0;
-let mouseY = 0;
-let x = 0;
-let y = 0;
+  const cursor = document.createElement("div");
+  cursor.className = "custom-cursor";
+  document.body.appendChild(cursor);
 
-let lastX = 0;
-let lastY = 0;
-let rotation = 0;
-let scale = 1;
+  let mouseX = 0;
+  let mouseY = 0;
+  let x = 0;
+  let y = 0;
 
-document.addEventListener("mousemove", (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-});
+  let lastX = 0;
+  let lastY = 0;
+  let scale = 1;
 
-function animate() {
-  // smooth follow
-  x += (mouseX - x) * 0.18;
-  y += (mouseY - y) * 0.18;
+  document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
 
-  // velocity
-  const dx = x - lastX;
-  const dy = y - lastY;
-  const speed = Math.sqrt(dx * dx + dy * dy);
+  // Hover detection (links, buttons, clickable elements)
+  document.addEventListener("mouseover", (e) => {
+    if (e.target.closest("a, button, input, textarea, select, label")) {
+      cursor.classList.add("hover");
+    }
+  });
 
-  // rotation
-  if (speed > 0.2) {
-    rotation = Math.atan2(dy, dx) * (180 / Math.PI);
-    scale = 0.85;
-  } else {
-    scale += (1 - scale) * 0.1;
+  document.addEventListener("mouseout", () => {
+    cursor.classList.remove("hover");
+  });
+
+  function animate() {
+    // smooth follow
+    x += (mouseX - x) * 0.18;
+    y += (mouseY - y) * 0.18;
+
+    // velocity-based scale
+    const dx = x - lastX;
+    const dy = y - lastY;
+    const speed = Math.sqrt(dx * dx + dy * dy);
+
+    if (speed > 0.2) {
+      scale = 0.9;
+    } else {
+      scale += (1 - scale) * 0.1;
+    }
+
+    cursor.style.transform = `
+      translate(${x - 16}px, ${y - 16}px)
+      scale(${scale})
+    `;
+
+    lastX = x;
+    lastY = y;
+
+    requestAnimationFrame(animate);
   }
 
-  cursor.style.transform = `
-    translate(${x - 11}px, ${y - 11}px)
-    rotate(${rotation}deg)
-    scale(${scale})
-  `;
-
-  lastX = x;
-  lastY = y;
-
-  requestAnimationFrame(animate);
+  animate();
 }
-
-animate();
 

@@ -1,28 +1,30 @@
-body {
-  cursor: none;
-}
+/* Desktop devices only */
+@media (hover: hover) and (pointer: fine) {
 
-.custom-cursor {
-  width: 40px;
-  height: 18px;
-  border-radius: 999px;
-  background: red; /* TEMP: bright color */
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  transform-origin: center;
-  z-index: 999999;
-}
+  body {
+    cursor: none;
+  }
 
-.custom-cursor {
-  width: 30px;
-  height: 14px;
-  border-radius: 999px;
-  background: black;
-}
-* {
-  cursor: none !important;
-}
+  * {
+    cursor: none !important;
+  }
 
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50px;              /* adjust to image size */
+    height: 50px;
+    background-image: url("eggcursor1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    transform-origin: center;
+    z-index: 999999;
+  }
 
+  /* Hover cursor */
+  .custom-cursor.hover {
+    background-image: url("eggcursor2.png");
+  }
+}
